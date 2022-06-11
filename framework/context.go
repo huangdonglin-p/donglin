@@ -40,54 +40,54 @@ func NewContext(r *http.Request, w http.ResponseWriter) *Context {
 
 /********** Context base function **************/
 
-//
+// WriterMux returns lock
 func (ctx *Context) WriterMux() *sync.Mutex {
 	return ctx.writerMux
 }
 
-//
+// GetRequest returns http.Request
 func (ctx *Context) GetRequest() *http.Request {
 	return ctx.request
 }
 
-//
+// GetResponse returns http.ResponseWriter
 func (ctx *Context) GetResponse() http.ResponseWriter {
 	return ctx.responseWriter
 }
 
-//
+// SetHasTimeout sets the timeout flag
 func (ctx *Context) SetHasTimeout() {
 	ctx.hasTimeout = true
 }
 
-//
+// HasTimeout returns ctx.hasTimeout
 func (ctx *Context) HasTimeout() bool {
 	return ctx.hasTimeout
 }
 
 /********** implement context.Context **************/
 
-//
+// BaseContext returns context.Context
 func (ctx *Context) BaseContext() context.Context {
 	return ctx.request.Context()
 }
 
-//
+// Deadline implements context.Context.Deadline method
 func (ctx *Context) Deadline() (deadline time.Time, ok bool) {
 	return ctx.BaseContext().Deadline()
 }
 
-//
+// Done implements context.Context.Done method
 func (ctx *Context) Done() <-chan struct{} {
 	return ctx.BaseContext().Done()
 }
 
-//
+// Err implements context.Context.Err method
 func (ctx *Context) Err() error {
 	return ctx.BaseContext().Err()
 }
 
-//
+// Value implements context.Context.Value method
 func (ctx *Context) Value(key interface{}) interface{} {
 	return ctx.BaseContext().Value(key)
 }
